@@ -100,16 +100,19 @@ rm -f jpegtran
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-ln -s /usr/bin/libtool .
+cp -p /usr/bin/libtool .
 
 cp %{SOURCE2} jpegexiforient.c
 cp %{SOURCE3} exifautotran
 
 %build
-%configure --prefix=%{_prefix} \
-	   --enable-shared \
-	   --enable-static \
-	   --disable-rpath
+export CFLAGS="%{optflags}"
+./configure \
+    --prefix=%{_prefix} \
+    --libdir=%{_libdir} \
+    --enable-shared \
+    --enable-static \
+    --disable-rpath
 
 #cat > have_stdlib.sed <<\EOF
 #s/#define HAVE_STDLIB_H/#ifndef HAVE_STDLIB_H\
@@ -126,7 +129,7 @@ cp %{SOURCE3} exifautotran
 LD_LIBRARY_PATH=$PWD make test
 %endif
 
-gcc $CFLAGS -o jpegexiforient jpegexiforient.c
+gcc %{optflags} -o jpegexiforient jpegexiforient.c
 
 %install
 rm -rf %buildroot
@@ -173,4 +176,3 @@ rm -rf %buildroot
 %doc README change.log
 %{_bindir}/*
 %{_mandir}/man1/*
-
