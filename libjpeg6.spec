@@ -100,7 +100,7 @@ rm -f jpegtran
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-cp -p /usr/bin/libtool .
+ln -s /usr/bin/libtool .
 
 cp %{SOURCE2} jpegexiforient.c
 cp %{SOURCE3} exifautotran
