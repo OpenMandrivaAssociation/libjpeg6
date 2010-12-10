@@ -4,7 +4,7 @@
 Summary:	A library for manipulating JPEG image format files
 Name:		libjpeg6
 Version:	6b
-Release:	%mkrel 45
+Release:	%mkrel 46
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
