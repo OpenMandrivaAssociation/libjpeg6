@@ -1,0 +1,12 @@
+diff -urN jpeg-6b.old/config.sub jpeg-6b/config.sub
+--- jpeg-6b.old/config.sub	Tue Mar 13 14:24:44 2001
++++ jpeg-6b/config.sub	Tue Mar 13 14:26:57 2001
+@@ -181,7 +181,7 @@
+ 	      | sparclite-* | pdp11-* | sh-* | powerpc-* | powerpcle-* \
+ 	      | sparc64-* | mips64-* | mipsel-* \
+ 	      | mips64el-* | mips64orion-* | mips64orionel-*  \
+-	      | mipstx39-* | mipstx39el-* \
++	      | mipstx39-* | mipstx39el-* | ia64-* \
+ 	      | f301-*)
+ 		;;
+ 	# Recognize the various machine names and aliases which stand

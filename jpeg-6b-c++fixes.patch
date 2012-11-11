@@ -1,0 +1,22 @@
+--- jpeg-6b/jpeglib.h.c++fixes	1998-02-21 20:48:14.000000000 +0100
++++ jpeg-6b/jpeglib.h	2006-12-11 23:00:46.000000000 +0100
+@@ -13,6 +13,10 @@
+ #ifndef JPEGLIB_H
+ #define JPEGLIB_H
+ 
++#ifdef __cplusplus
++extern "C" {
++#endif
++
+ /*
+  * First we include the configuration files that record how this
+  * installation of the JPEG library is set up.  jconfig.h can be
+@@ -1093,4 +1097,8 @@ struct jpeg_color_quantizer { long dummy
+ #include "jerror.h"		/* fetch error codes too */
+ #endif
+ 
++#ifdef __cplusplus
++}
++#endif
++
+ #endif /* JPEGLIB_H */
