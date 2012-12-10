@@ -1,5 +1,4 @@
 sources:
-  "droppatch.tar.bz2:"	19dc46ce9058c268dcc319f220ec6af14311b004
-  "exifautotran.txt:"	3086f24ccaa3e994ba40ec1d9a633a0aaa70e2be
-  "jpegexiforient.c:"	b28a27df7931da68285bd751f77712062f006e5a
-  "jpegsrc.v6b.tar.bz2:"	9064e88e8c8bde13fb7ba809f3b84fa0737a981d
+  droppatch.tar.bz2: 19dc46ce9058c268dcc319f220ec6af14311b004
+  jpegsrc.v6b.tar.bz2: 9064e88e8c8bde13fb7ba809f3b84fa0737a981d
+---

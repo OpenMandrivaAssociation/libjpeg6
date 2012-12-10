@@ -4,7 +4,7 @@
 Summary:	A library for manipulating JPEG image format files
 Name:		libjpeg6
 Version:	6b
-Release:	%mkrel 46
+Release:	47
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
@@ -27,7 +27,6 @@ Patch2:		jpeg-6b-c++fixes.patch
 # Use autoconf variables to know libdir et al.
 Patch3:		jpeg-6b-autoconf-vars.patch
 BuildRequires:	libtool
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 The libjpeg package contains a shared library of functions for loading,
@@ -48,27 +47,11 @@ linked with libjpeg.
 Summary:	Development tools for programs which will use the libjpeg library
 Group:		Development/C
 Requires:	%{libname} = %{version}
-Provides:	jpeg6-devel = %{version}-%{release}
+Provides:	jpeg6-devel = %{EVRD}
 Conflicts:	%{mklibname jpeg 7 -d}
 
 %description -n	%{libname}-devel
 The libjpeg-devel package includes the header files necessary for 
-developing programs which will manipulate JPEG files using
-the libjpeg library.
-
-If you are going to develop programs which will manipulate JPEG images,
-you should install libjpeg-devel.  You'll also need to have the libjpeg
-package installed.
-
-%package -n	%{libname}-static-devel
-Summary:	Static libraries for programs which will use the libjpeg library
-Group:		Development/C
-Requires:	%{libname}-devel = %{version}-%{release}
-Provides:	jpeg6-static-devel = %{version}-%{release}
-Conflicts:	%{mklibname jpeg 7 -d -s}
-
-%description -n %{libname}-static-devel
-The libjpeg-devel package includes the static librariesnecessary for 
 developing programs which will manipulate JPEG files using
 the libjpeg library.
 
@@ -111,7 +94,7 @@ export CFLAGS="%{optflags}"
     --prefix=%{_prefix} \
     --libdir=%{_libdir} \
     --enable-shared \
-    --enable-static \
+    --disable-static \
     --disable-rpath
 
 #cat > have_stdlib.sed <<\EOF
@@ -132,7 +115,6 @@ LD_LIBRARY_PATH=$PWD make test
 gcc %{optflags} -o jpegexiforient jpegexiforient.c
 
 %install
-rm -rf %buildroot
 mkdir -p %buildroot/{%{_bindir},%{_libdir},%{_includedir},%{_mandir}/man1}
 
 #(neoclust) Provide jpegint.h because it is needed softwares
@@ -143,36 +125,87 @@ cp jpegint.h %buildroot%{_includedir}/jpegint.h
 install -m 755 jpegexiforient %{buildroot}%{_bindir}
 install -m 755 exifautotran %{buildroot}%{_bindir}
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-rm -rf %buildroot
-
 %files -n %{libname}
-%defattr(-,root,root)
 %doc README change.log
 %{_libdir}/lib*.so.*
 
 %files -n %{libname}-devel
-%defattr(-,root,root)
 %doc README usage.doc change.log wizard.doc coderules.doc libjpeg.doc structure.doc example.c
 %{_libdir}/*.so
 %{_includedir}/*.h
-%{_libdir}/*.la
-
-%files -n %{libname}-static-devel
-%defattr(-,root,root)
-%doc README 
-%{_libdir}/*.a
 
 %files -n jpeg6-progs
-%defattr(-,root,root)
 %doc README change.log
 %{_bindir}/*
 %{_mandir}/man1/*
+
+
+%changelog
+* Fri Dec 10 2010 Oden Eriksson <oeriksson@mandriva.com> 6b-46mdv2011.0
++ Revision: 620146
+- the mass rebuild of 2010.0 packages
+
+* Sat Aug 15 2009 Oden Eriksson <oeriksson@mandriva.com> 6b-45mdv2010.0
++ Revision: 416509
+- fix build (again)
+- fix build
+- import libjpeg6
+
+
+* Thu Dec 18 2008 Oden Eriksson <oeriksson@mandriva.com> 6b-45mdv2009.1
+- rename the package to libjpeg6 to coexist with libjpeg v7 and fix deps
+
+* Thu Dec 18 2008 Oden Eriksson <oeriksson@mandriva.com> 6b-44mdv2009.1
++ Revision: 315574
+- rebuild
+
+* Tue Jun 17 2008 Thierry Vignaud <tvignaud@mandriva.com> 6b-43mdv2009.0
++ Revision: 222898
+- rebuild
+
+  + Pixel <pixel@mandriva.com>
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+* Sun Jan 13 2008 Thierry Vignaud <tvignaud@mandriva.com> 6b-42mdv2008.1
++ Revision: 150699
+- rebuild
+- kill re-definition of %%buildroot on Pixel's request
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+
+* Mon Dec 11 2006 Gwenole Beauchesne <gbeauchesne@mandriva.com> 6b-41mdv2007.0
++ Revision: 95114
+- Add guards for C++ code (e.g. OpenVRML)
+
+  + Oden Eriksson <oeriksson@mandriva.com>
+    - bzip2 cleanup
+    - rebuild
+    - bunzip patches and sources
+    - Import libjpeg
+
+* Wed Jan 11 2006 Christiaan Welvaart <cjw@daneel.dyndns.org> 6b-39mdk
+- add BuildRequires: libtool
+
+* Sun Jan 01 2006 Mandriva Linux Team <http://www.mandrivaexpert.com/> 6b-38mdk
+- Rebuild
+
+* Thu Jul 21 2005 Nicolas Lécureuil <neoclust@mandriva.org> 6b-37mdk
+- Fix error pointed out by Per Øyvind Karlsen and couriousous
+
+* Thu Jul 21 2005 Nicolas Lécureuil <neoclust@mandriva.org> 6b-36mdk
+- Clean My mess
+
+* Thu Jul 21 2005 Nicolas Lécureuil <neoclust@mandriva.org> 6b-35mdk
+- Provide jpegint.h because it is needed softwares
+
+* Fri Feb 18 2005 Rafael Garcia-Suarez <rgarciasuarez@mandrakesoft.com> 6b-34mdk
+- Rename 'libjpeg-progs' to 'jpeg-progs'
+
+* Tue Dec 16 2003 Till Kamppeter <till@mandrakesoft.com> 6b-33mdk
+- Updated patch for lossless cropping and pasting to the newest version,
+  it contains also the EXIF fixes shown on 
+  http://jpegclub.org/exifpatch.html
+- Added orientation utilities from http://jpegclub.org/exif_orientation.html
+
