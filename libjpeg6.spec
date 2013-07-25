@@ -1,10 +1,12 @@
 %define major 62
 %define libname %mklibname jpeg %{major}
 
+%define __noautoprov 'devel(.*)'
+
 Summary:	A library for manipulating JPEG image format files
 Name:		libjpeg6
 Version:	6b
-Release:	47
+Release:	48
 License:	GPL-like
 Group:		System/Libraries
 URL:		http://www.ijg.org/
