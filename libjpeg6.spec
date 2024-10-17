@@ -9,7 +9,7 @@ Version:	6b
 Release:	49
 License:	GPL-like
 Group:		System/Libraries
-URL:		http://www.ijg.org/
+URL:		https://www.ijg.org/
 Source0:	ftp://ftp.uu.net/graphics/jpeg/jpegsrc.v6b.tar.bz2
 # Modified source files for lossless cropping of JPEG files and for
 # lossless pasting of one JPEG into another (dropping). In addition a
